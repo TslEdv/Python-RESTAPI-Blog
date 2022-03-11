@@ -2,13 +2,16 @@ from marshmallow import fields, Schema
 import datetime
 from . import db
 from .BlogpostModel import BlogpostSchema
+from sqlalchemy.orm import relationship
+from .CategoryBlogModel import categorypblogs
 
 class CategoryModel(db.Model):
     __tablename__ = 'categories'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(15), nullable=False)
-    blogposts = db.relationship('BlogpostModel', backref='categories', lazy=True)
+    blogposts = relationship("BlogpostModel", secondary=categorypblogs, lazy='subquery',
+        backref=db.backref('categories', lazy=True))
 
     def __init__(self, data):
         self.name = data.get('name')
@@ -26,6 +29,14 @@ class CategoryModel(db.Model):
 
     def delete(self):
         db.session.delete(self)
+        db.session.commit()
+
+    def add_post(self, data):
+        self.blogposts.append(data)
+        db.session.commit()
+
+    def remove_post(self, data):
+        self.blogposts.remove(data)
         db.session.commit()
 
 

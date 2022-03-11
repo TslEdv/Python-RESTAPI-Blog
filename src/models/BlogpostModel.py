@@ -1,6 +1,8 @@
 from . import db
 import datetime
 from marshmallow import fields, Schema
+from sqlalchemy.orm import relationship
+
 
 class BlogpostModel(db.Model):
   __tablename__ = 'blogposts'
@@ -10,12 +12,11 @@ class BlogpostModel(db.Model):
   contents = db.Column(db.String(140), nullable=False)
   created_at = db.Column(db.DateTime)
   modified_at = db.Column(db.DateTime)
-  category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
+
 
   def __init__(self, data):
     self.title = data.get('title')
     self.contents = data.get('contents')
-    self.category_id = data.get('category_id')
     self.created_at = datetime.datetime.utcnow()
     self.modified_at = datetime.datetime.utcnow()
 
@@ -48,6 +49,5 @@ class BlogpostSchema(Schema):
   id = fields.Int(dump_only=True)
   title = fields.Str(required=True)
   contents = fields.Str(required=True)
-  category_id = fields.Int(required=True)
   created_at = fields.DateTime(dump_only=True)
   modified_at = fields.DateTime(dump_only=True)

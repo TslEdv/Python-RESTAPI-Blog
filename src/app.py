@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from .config import app_config
 from .models import db
 from .views.CategoryVIew import category_api as category_blueprint
+from .views.BlogpostVIew import blogpost_api as blogpost_blueprint
 
 
 def create_app(env_name):
@@ -14,6 +15,7 @@ def create_app(env_name):
     migrate = Migrate(app=app, db=db)
     db.init_app(app)
     app.register_blueprint(category_blueprint, url_prefix='/categories')
+    app.register_blueprint(blogpost_blueprint, url_prefix='/blogposts')
     @app.route('/', methods=['GET'])
     def index():
         return 'It works!'
