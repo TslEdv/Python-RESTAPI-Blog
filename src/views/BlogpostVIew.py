@@ -40,7 +40,7 @@ def remove_category(blog_id, category_id):
     return custom_response(data, 201)
 
 
-@blogpost_api.route('/update/<int:blog_id>', methods=['POST'])
+@blogpost_api.route('/update/<int:blog_id>', methods=['PUT'])
 def update(blog_id):
     req_data = request.get_json()
     if len(req_data['contents']) > 150:

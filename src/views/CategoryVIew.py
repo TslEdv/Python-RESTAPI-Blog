@@ -43,7 +43,7 @@ def get_a_category(category_id):
 def update(category_id):
     req_data = request.get_json()
     data = category_schema.load(req_data)
-    if req_data['name'].isalpha() == False and len(req_data['name']) > 15:
+    if req_data['name'].isalpha() == False or len(req_data['name']) > 15:
         return custom_response({'error': 'Title may only contain max 15 letters without spaces'}, 404)
     try:
         data = category_schema.load(req_data)
