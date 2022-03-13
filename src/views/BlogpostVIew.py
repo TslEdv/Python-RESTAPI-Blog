@@ -11,8 +11,8 @@ blogpost_schema = BlogpostSchema()
 def create(category_id):
     category = CategoryModel.query.get(category_id)
     req_data = request.get_json()
-    if len(req_data['contents']) > 150:
-        return custom_response({'error': 'post contents are too long (max 150)'}, 404)
+    if len(req_data['contents']) > 140:
+        return custom_response({'error': 'post contents are too long (max 140)'}, 404)
     try:
         data = blogpost_schema.load(req_data)
     except ValidationError as err:
@@ -43,8 +43,8 @@ def remove_category(blog_id, category_id):
 @blogpost_api.route('/update/<int:blog_id>', methods=['PUT'])
 def update(blog_id):
     req_data = request.get_json()
-    if len(req_data['contents']) > 150:
-        return custom_response({'error': 'post contents are too long (max 150)'}, 404)
+    if len(req_data['contents']) > 140:
+        return custom_response({'error': 'post contents are too long (max 140)'}, 404)
     try:
         data = blogpost_schema.load(req_data)
     except ValidationError as err:
