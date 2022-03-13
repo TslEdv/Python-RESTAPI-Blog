@@ -6,24 +6,22 @@
     - Activate the virtual environment `pip shell` command
     - Install all dependencies with command `pipenv install`
     - Add environmental variables to your machine
-        ```
         export FLASK_ENV=development
         export DATABASE_URL=postgresql://blogadmin:blogpass@localhost:5432/blogapi
-        ```
 
     - Create database blogapi
         If using linux:
-        ```
+
         sudo -u postgres psql
         create database blogapi;
         create user blogadmin with encrypted password 'blogpass';
         grant all privileges on database blogapi to blogadmin;
-        ```
+
     - Run commands 
-        `flask db init`
-        `flask db migrate`
-        `flask db upgrade`
-    - Start app with `python run.py`
+        flask db init
+        flask db migrate
+        flask db upgrade
+    - Start app with "python run.py"
 
 
     TO use the app,  use a tool for example `POSTMAN` or anything similar than sends different crud operations.
